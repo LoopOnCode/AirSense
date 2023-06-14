@@ -1,6 +1,6 @@
 
 # [AirSense - Indoor Air Quality Sensor Board](https://loopon.tech/products/airsense)<!-- omit from toc -->
-This repository contains the pre-installed ESPHome config and example Arduino code projects for the AirSense board.
+This repository contains the pre-installed ESPHome config for the AirSense board.
 Specifications of the board can be found at https://loopon.tech/products/airsense
 <p align="center">
   <img width="260" src="./images/AirSenseBoard.png">
