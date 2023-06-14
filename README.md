@@ -5,7 +5,9 @@ Specifications of the board can be found at https://loopon.tech/products/airsens
 <p align="center">
   <img width="260" src="./images/AirSenseBoard.png">
 </p>
-
+<p align="center">
+  <img width="260" src="https://esphome.io/_images/made-for-esphome-black-on-white.svg">
+</p>
 
 > <img width="50" align="right" src="./images/esdWarning.png" style="margin: 5px; display: block;">
 
