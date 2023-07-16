@@ -348,7 +348,7 @@ switch:
   - platform: template
     name: "${device_name} Beep on Amber"
     id: beep_on_amber
-    icon: "mdi:cog"
+    icon: "mdi:bell-ring"
     entity_category: config
     restore_state: true
     restore_mode: RESTORE_DEFAULT_ON
@@ -356,7 +356,7 @@ switch:
   - platform: template
     name: "${device_name} Beep on Red"
     id: beep_on_red
-    icon: "mdi:cog"
+    icon: "mdi:bell-ring"
     entity_category: config
     restore_state: true
     restore_mode: RESTORE_DEFAULT_ON

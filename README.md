@@ -3,7 +3,7 @@
 This repository contains the pre-installed ESPHome config for the AirSense board.
 Specifications of the board can be found at https://loopon.tech/products/airsense
 <p align="center">
-  <img width="260" src="./images/AirSenseBoard.png">
+  <img width="260" src="./images/AirSenseBoard.jpg">
 </p>
 <p align="center">
   <img width="260" src="https://esphome.io/_images/made-for-esphome-black-on-white.svg">
