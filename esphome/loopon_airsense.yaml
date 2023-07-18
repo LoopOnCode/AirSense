@@ -164,7 +164,7 @@ number:
     update_interval: never
     optimistic: true
     restore_value: true
-    initial_value: 0
+    initial_value: -6
     icon: "mdi:thermometer"
     entity_category: config
   - platform: template
@@ -246,7 +246,7 @@ sensor:
       name: "${device_name} Temperature"
       filters:
         - median
-        - lambda: "return x+id(temperature_offset).state;"
+        - lambda: "return x-(abs((id(internal_temp).state/2)-x)/2)+id(temperature_offset).state;"
     pressure:
       name: "${device_name} Pressure"
       filters:
