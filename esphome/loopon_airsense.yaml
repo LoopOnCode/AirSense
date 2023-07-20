@@ -5,7 +5,7 @@ substitutions:
   name: airsense
   device_name: AirSense
   device_make: LoopOn
-  sw_version: "1.0.0"
+  sw_version: "1.0.1"
   bme680_addr: "0x77" # Addr pad unsoldered=0x77 / soldered=0x76
   iaq_level_0: Excellent
   iaq_level_1: Good
@@ -19,7 +19,7 @@ esphome:
   name: "${name}"
   comment: "${device_name} by ${device_make}"
   name_add_mac_suffix: true
-  min_version: "2023.5.5"
+  min_version: "2023.7.0"
   project:
     name: "${device_make}.${device_name}"
     version: "${sw_version}"
@@ -342,7 +342,6 @@ switch:
     id: use_rag_states
     icon: "mdi:cog"
     entity_category: config
-    restore_state: true
     restore_mode: RESTORE_DEFAULT_ON
     optimistic: true
   - platform: template
@@ -350,7 +349,6 @@ switch:
     id: beep_on_amber
     icon: "mdi:bell-ring"
     entity_category: config
-    restore_state: true
     restore_mode: RESTORE_DEFAULT_ON
     optimistic: true
   - platform: template
@@ -358,7 +356,6 @@ switch:
     id: beep_on_red
     icon: "mdi:bell-ring"
     entity_category: config
-    restore_state: true
     restore_mode: RESTORE_DEFAULT_ON
     optimistic: true
 

@@ -1,0 +1,82 @@
+blueprint:
+  name: AirSense IAQ Trigger
+  description: Trigger on selected IAQ classifications
+  domain: automation
+  input:
+    iaq_classification_input:
+      name: AirSense IAQ Input Classification
+      description:
+        Entity representing the AirSense IAQ classifcation value
+      selector:
+        entity:
+          domain: sensor
+          integration: esphome
+    iaq_trigger_classifications:
+      name: Trigger Classifications
+      description: Select the IAQ classifications to trigger on
+      selector:
+        select:
+          multiple: true
+          options:
+            - Excellent
+            - Good
+            - Lightly Polluted
+            - Moderately Polluted
+            - Heavily Polluted
+            - Severely Polluted
+            - Extremely Polluted
+    light_target:
+      name: AirSense Light
+      description:
+        Entity representing the AirSense light
+      selector:
+        entity:
+          domain: light
+          integration: esphome
+    light_color_rgb:
+      name: Color
+      description: Choose the color for the light
+      selector:
+        color_rgb:
+    light_effect:
+      name: Light Effect
+      description: Choose the light effect
+      selector:
+        select:
+          options:
+            - None
+            - Slow Pulse
+            - Fast Pulse
+    action_to_run:
+      name: Action
+      description: Select an action
+      default:
+      selector:
+        action:
+
+mode: single
+
+variables:
+  light_target: !input light_target
+
+trigger:
+  platform: state
+  entity_id: !input iaq_classification_input
+
+action:
+  - alias: "Check state"
+    condition: state
+    entity_id: !input iaq_classification_input
+    state: !input iaq_trigger_classifications
+    match: any
+  - alias: "Turn on the light"
+    service: light.turn_on
+    target: 
+      entity_id: !input light_target
+    data:
+      transition: 1
+      rgb_color: !input light_color_rgb
+      effect: !input light_effect
+  - alias: "Run the action"
+    choose: []
+    default: !input action_to_run
