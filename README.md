@@ -21,6 +21,9 @@ Specifications of the board can be found at https://loopon.tech/products/airsens
 - [Getting Started](#getting-started)
   - [Connecting to WiFi](#connecting-to-wifi)
   - [Home Assistant](#home-assistant)
+    - [Import Blueprint](#import-blueprint)
+    - [Disabling Default LED and Buzzer Behaviour](#disabling-default-led-and-buzzer-behaviour)
+    - [RTTTL (Melody) Service](#rtttl-melody-service)
   - [Modifying ESPHome Config](#modifying-esphome-config)
 - [Flashing the AirSense Board](#flashing-the-airsense-board)
 
@@ -73,6 +76,26 @@ Note: If the device does not show up then please try restarting Home Assistant. 
 You can now view the AirSense board in [![Open your Home Assistant instance and show your devices.](https://my.home-assistant.io/badges/devices.svg)](https://my.home-assistant.io/redirect/devices/)
 <p align="center">
   <img width="360" src="./images/HomeAssistantAirSenseDevice.png">
+</p>
+
+### Import Blueprint
+Use the Import Blueprint at the top of this page to define your own behaviour. The blueprint allows you to set the IAQ classifiers to trigger at. See the example below:
+
+<p align="center">
+  <img width="360" src="./images/BluePrintExample.png">
+</p>
+
+### Disabling Default LED and Buzzer Behaviour
+If you have imported the Home Assistant Blueprint or created your own rules, then you may want to turn off the following switches to disable the default behaviour of the RGB LED and the buzzer:
+<p align="center">
+  <img width="360" src="./images/DefaultBehaviourSwitches.png">
+</p>
+
+### RTTTL (Melody) Service
+The Ring Tone Text Transfer Language service will automatically be available in your Home Assistant with AirSense. You can invoke this service to play custom beeps and melodies.
+Click [here](https://esphome.io/components/rtttl.html#common-beeps) for examples.
+<p align="center">
+  <img width="360" src="./images/RtttlServiceMario.png">
 </p>
 
 ## Modifying ESPHome Config
