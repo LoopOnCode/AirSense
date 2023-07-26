@@ -20,11 +20,15 @@ Specifications of the board can be found at https://loopon.tech/products/airsens
 # Table of Contents<!-- omit from toc -->
 - [Getting Started](#getting-started)
   - [Connecting to WiFi](#connecting-to-wifi)
-  - [Home Assistant](#home-assistant)
-    - [Import Blueprint](#import-blueprint)
-    - [Disabling Default LED and Buzzer Behaviour](#disabling-default-led-and-buzzer-behaviour)
-    - [RTTTL (Melody) Service](#rtttl-melody-service)
-  - [Modifying ESPHome Config](#modifying-esphome-config)
+- [Home Assistant](#home-assistant)
+  - [Discovery](#discovery)
+  - [View Device](#view-device)
+  - [Import Blueprint](#import-blueprint)
+  - [Disabling Default LED and Buzzer Behaviour](#disabling-default-led-and-buzzer-behaviour)
+  - [RTTTL (Melody) Service](#rtttl-melody-service)
+- [Modifying ESPHome Config](#modifying-esphome-config)
+  - [Using ESPHome Dashboard in Home Assistant](#using-esphome-dashboard-in-home-assistant)
+  - [Using ESPHome CLI](#using-esphome-cli)
 - [Flashing the AirSense Board](#flashing-the-airsense-board)
 
 # Getting Started
@@ -52,11 +56,11 @@ There are two ways to connect the AirSense board to your WiFi network:
 1. Select your WiFi network SSID from the list and input the password if needed.
 1. Click Save.
 
-## Home Assistant
+# Home Assistant
 Once you have successfully connected to your WiFi network, you can integrate the device to Home Assistant.
 You must have the ESPHome Add-on installed. If you do not have the Add-on then follow the 'Installing ESPHome Dashboard' guide [here](https://esphome.io/guides/getting_started_hassio.html).
 
-### Discovery<!-- omit from toc -->
+## Discovery
 Home Assistant and the ESPHome Add-on will automatically detect the AirSense device.
 
 You can find the device in:
@@ -72,68 +76,60 @@ You can find the device in:
 
 Note: If the device does not show up then please try restarting Home Assistant. [![Open your Home Assistant instance and show your server controls.](https://my.home-assistant.io/badges/server_controls.svg)](https://my.home-assistant.io/redirect/server_controls/)
 
-### View Device<!-- omit from toc -->
+## View Device
 You can now view the AirSense board in [![Open your Home Assistant instance and show your devices.](https://my.home-assistant.io/badges/devices.svg)](https://my.home-assistant.io/redirect/devices/)
 <p align="center">
   <img width="360" src="./images/HomeAssistantAirSenseDevice.png">
 </p>
 
-### Import Blueprint
+## Import Blueprint
 Use the Import Blueprint at the top of this page to define your own behaviour. The blueprint allows you to set the IAQ classifiers to trigger at. See the example below:
 
 <p align="center">
   <img width="360" src="./images/BluePrintExample.png">
 </p>
 
-### Disabling Default LED and Buzzer Behaviour
+## Disabling Default LED and Buzzer Behaviour
 If you have imported the Home Assistant Blueprint or created your own rules, then you may want to turn off the following switches to disable the default behaviour of the RGB LED and the buzzer:
 <p align="center">
   <img width="360" src="./images/DefaultBehaviourSwitches.png">
 </p>
 
-### RTTTL (Melody) Service
+## RTTTL (Melody) Service
 The Ring Tone Text Transfer Language service will automatically be available in your Home Assistant with AirSense. You can invoke this service to play custom beeps and melodies.
 Click [here](https://esphome.io/components/rtttl.html#common-beeps) for examples.
 <p align="center">
   <img width="360" src="./images/RtttlServiceMario.png">
 </p>
 
-## Modifying ESPHome Config
+# Modifying ESPHome Config
 You can modify the way the device behaves by compiling and flashing the AirSense board.
 
-### Using ESPHome Dashboard in Home Assistant (Easy)<!-- omit from toc -->
+## Using ESPHome Dashboard in Home Assistant
 1. Go to the ESPHome dashboard in Home Assistant.
 2. Select the device you would like to modify and click "Edit".
 3. Make your changes in the yaml and click "Install".
 4. Select "Wirelessly" from the pop-up.
 5. ESPHome will now compile the latest yaml and install it on the device. This will take a few minutes.
 
-### Using ESPHome CLI (Medium)<!-- omit from toc -->
-With ESPHome installed on your computer ([guide](https://esphome.io/guides/installing_esphome.html)), you can clone and modify the [loopon_airsense.yaml](./esphome/loopon_airsense.yaml), compile and flash the AirSense board.
-
-To compile and flash use:
-```sh
-# Make sure AirSense board is in Flash mode
-esphome run ./esphome/loopon_airsense.yaml --no-logs
-# Reset device when done
-```
-
-To monitor logs use:
-```sh
-esphome logs ./esphome/loopon_airsense.yaml 
-```
-
-You can optionally add the device port to the commands above:
-```sh
- --device=COM19 
-```
+## Using ESPHome CLI
+1. Make sure ESPHome is installed on your computer ([guide](https://esphome.io/guides/installing_esphome.html)).
+1. Clone this repo: 
+```git clone https://github.com/LoopOnCode/AirSense``` or download and extract the zip.
+1. Make your changes to [loopon_airsense.yaml](./esphome/loopon_airsense.yaml).
+1.  Put the device into flash mode. See [here](#flashing-the-airsense-board).
+1.  Compile and flash:
+```esphome run ./AirSense/esphome/loopon_airsense.yaml --no-logs```
+1.  Reset the device
+1. (Optional) Monitor the logs: ```esphome logs ./AirSense/esphome/loopon_airsense.yaml```
 
 # Flashing the AirSense Board
 To flash the AirSense board, it must be put in the correct boot mode.
 You can do this by:
+1. Connecting the device to a computer using a USB-C cable.
 1. Holding down the boot button.
-1. Momentarily pressing the reset button.
-1. Then, releasing the boot button.
+2. Momentarily pressing the reset button.
+3. Then, releasing the boot button.
 
 Once flashing has completed, press the reset button to restart in normal mode.
 
