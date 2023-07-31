@@ -84,7 +84,7 @@ improv_serial:
 i2c:
   sda: GPIO5
   scl: GPIO6
-  scan: true ########################################## Disable
+  scan: false
 
 bme68x_bsec:
   address: ${bme680_addr}

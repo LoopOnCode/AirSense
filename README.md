@@ -120,7 +120,7 @@ You can modify the way the device behaves by compiling and flashing the AirSense
 1.  Put the device into flash mode. See [here](#flashing-the-airsense-board).
 1.  Compile and flash:
 ```esphome run ./AirSense/esphome/loopon_airsense.yaml --no-logs```
-1.  Reset the device
+1.  Reset the device.
 1. (Optional) Monitor the logs: ```esphome logs ./AirSense/esphome/loopon_airsense.yaml```
 
 # Flashing the AirSense Board
