@@ -5,7 +5,7 @@ substitutions:
   name: airsense
   device_name: AirSense
   device_make: LoopOn
-  sw_version: "1.0.2"
+  sw_version: "1.0.3"
   bme680_addr: "0x77" # Addr pad unsoldered=0x77 / soldered=0x76
   iaq_level_0: Excellent
   iaq_level_1: Good
@@ -86,7 +86,6 @@ wifi:
   fast_connect: false
   output_power: 15
   ap:
-    ap_timeout: "15s"
 
 captive_portal:
 
