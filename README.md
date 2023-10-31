@@ -27,6 +27,8 @@ Specifications of the board can be found at https://loopon.tech/products/airsens
   - [Using ESPHome Dashboard in Home Assistant](#using-esphome-dashboard-in-home-assistant)
   - [Using ESPHome CLI](#using-esphome-cli)
 - [Flashing the AirSense Board](#flashing-the-airsense-board)
+- [Arduino Example Projects](#arduino-example-projects)
+  - [1. Demo](#1-demo)
 
 # Getting Started
 The AirSense board comes pre-installed with ESPHome. The configuration can be found [here](./esphome/loopon_airsense.yaml).
@@ -125,8 +127,21 @@ To flash the AirSense board, it must be put in the correct boot mode.
 You can do this by:
 1. Connecting the device to a computer using a USB-C cable.
 1. Holding down the boot button.
-2. Momentarily pressing the reset button.
-3. Then, releasing the boot button.
+1. Momentarily pressing the reset button.
+1. Then, releasing the boot button.
 
 Once flashing has completed, press the reset button to restart in normal mode.
 
+# Arduino Example Projects
+
+## PlatformIO<!-- omit from toc -->
+PlatformIO is a cross-platform IDE extension for Visual Studio Code.
+Use PlatformIO to open, build and upload the example projects to the Unity board. 
+The installation guide can be found [here](https://platformio.org/install/ide?install=vscode).
+
+## 1. [Demo](/Arduino%20Examples/Demo)
+This demo project showcases:
+1. how to gather data from the environment sensor on the Ais
+1. how to set the colour on the RGB LED
+2. how to read the button state
+3. how to produce a tone with the buzzer
