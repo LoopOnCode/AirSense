@@ -141,7 +141,7 @@ The installation guide can be found [here](https://platformio.org/install/ide?in
 
 ## 1. [Demo](/Arduino%20Examples/Demo)
 This demo project showcases:
-1. how to gather data from the environment sensor on the Ais
-1. how to set the colour on the RGB LED
-2. how to read the button state
-3. how to produce a tone with the buzzer
+1. how to gather data from the environment sensor
+2. how to set the colour on the RGB LED
+3. how to read the button state
+4. how to produce a tone with the buzzer
