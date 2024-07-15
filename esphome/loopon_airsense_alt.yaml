@@ -5,7 +5,7 @@ substitutions:
   name: airsense
   device_name: AirSense
   device_make: LoopOn
-  sw_version: "1.5.5"
+  sw_version: "1.5.6"
   bme680_addr: "0x77" # Addr pad unsoldered=0x77 / soldered=0x76
   iaq_level_0: Excellent
   iaq_level_1: Good
@@ -274,6 +274,9 @@ sensor:
       filters:
         - median
         - lambda: "return x+id(humidity_offset).state;"
+        - clamp: 
+            min_value: 0
+            max_value: 100
     iaq:
       name: "IAQ"
       icon: "mdi:leaf"
