@@ -5,7 +5,7 @@ substitutions:
   name: airsense
   device_name: AirSense
   device_make: LoopOn
-  sw_version: "1.5.6"
+  sw_version: "1.5.7"
   bme680_addr: "0x77" # Addr pad unsoldered=0x77 / soldered=0x76
   iaq_level_0: Excellent
   iaq_level_1: Good
@@ -41,7 +41,7 @@ esphome:
     then:
       - light.turn_on:
           id: rgb_light
-          effect: Boot Sequence
+          effect: "Boot Sequence"
           red: 100%
           green: 100%
           blue: 100%
@@ -87,6 +87,11 @@ wifi:
   fast_connect: false
   output_power: 15
   ap:
+  on_connect:
+    - delay: 5s # Gives time for improv results to be transmitted
+    - ble.disable:
+  on_disconnect:
+    - ble.enable:
 
 captive_portal:
 
@@ -135,7 +140,7 @@ light:
           update_interval: 0.5s
           min_brightness: 10%
       - addressable_rainbow:
-          name: Boot Sequence
+          name: "Boot Sequence"
           speed: 50
           width: 1
 text_sensor:
@@ -181,7 +186,7 @@ number:
     update_interval: never
     optimistic: true
     restore_value: true
-    initial_value: -6
+    initial_value: 0
     icon: "mdi:thermometer"
     entity_category: config
   - platform: template
@@ -263,7 +268,7 @@ sensor:
       name: "Temperature"
       filters:
         - median
-        - lambda: "return x-(abs((id(internal_temp).state/2)-x)/2)+id(temperature_offset).state;"
+        - lambda: "return x-(abs((id(internal_temp).state/2)-x)/2)+id(temperature_offset).state-5;"
     pressure:
       name: "Pressure"
       filters:
@@ -384,12 +389,12 @@ button:
     name: "Restart"
     entity_category: diagnostic
   - platform: factory_reset
-    name: ${device_name} Factory Reset
+    name: "Factory Reset"
     icon: "mdi:restart-alert"
     entity_category: config
     disabled_by_default: true
   - platform: template
-    name: ${device_name} Beep
+    name: "Beep"
     icon: "mdi:bell-ring"
     entity_category: diagnostic
     on_press:
