@@ -20,7 +20,7 @@ esphome:
   friendly_name: "${device_name}"
   comment: "${device_name} by ${device_make}"
   name_add_mac_suffix: true
-  min_version: "2024.6.1"
+  min_version: "2024.6.2"
   project:
     name: "${device_make}.${device_name}"
     version: "${sw_version}"
