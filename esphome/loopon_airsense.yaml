@@ -5,7 +5,7 @@ substitutions:
   name: airsense
   device_name: AirSense
   device_make: LoopOn
-  sw_version: "1.0.7"
+  sw_version: "1.0.8"
   bme680_addr: "0x77" # Addr pad unsoldered=0x77 / soldered=0x76
   iaq_level_0: Excellent
   iaq_level_1: Good
@@ -20,7 +20,7 @@ esphome:
   friendly_name: "${device_name}"
   comment: "${device_name} by ${device_make}"
   name_add_mac_suffix: true
-  min_version: "2024.6.1"
+  min_version: "2024.9.2"
   project:
     name: "${device_make}.${device_name}"
     version: "${sw_version}"
@@ -86,6 +86,8 @@ ota:
 wifi:
   fast_connect: false
   output_power: 15
+  enable_on_boot: true
+  power_save_mode: LIGHT
   ap:
   on_connect:
     - delay: 5s # Gives time for improv results to be transmitted
@@ -97,6 +99,7 @@ captive_portal:
 
 esp32_improv:
   authorizer: none
+  status_indicator: improv_status
 
 improv_serial:
 
@@ -143,6 +146,7 @@ light:
           name: "Boot Sequence"
           speed: 50
           width: 1
+
 text_sensor:
   - platform: template
     name: "${device_name} Config Version"
@@ -404,6 +408,13 @@ output:
   - platform: ledc
     pin: GPIO10
     id: rtttl_out
+  - platform: template
+    id: improv_status
+    type: binary
+    write_action:
+      - light.control:
+          id: rgb_light
+          state: !lambda return state;
 
 rtttl:
   output: rtttl_out
