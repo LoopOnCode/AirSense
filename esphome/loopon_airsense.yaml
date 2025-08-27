@@ -5,7 +5,7 @@ substitutions:
   name: airsense
   device_name: AirSense
   device_make: LoopOn
-  sw_version: "1.0.8"
+  sw_version: "1.1.0"
   bme680_addr: "0x77" # Addr pad unsoldered=0x77 / soldered=0x76
   iaq_level_0: Excellent
   iaq_level_1: Good
@@ -56,15 +56,11 @@ esp32:
   board: esp32-c3-devkitm-1
   variant: esp32c3
   framework:
-    type: arduino
+    type: esp-idf
 
 dashboard_import:
   package_import_url: github://LoopOnCode/AirSense/esphome/loopon_airsense.yaml@main
   import_full_config: false
-
-external_components:
-  - source: github://LoopOnCode/AirSense@main
-    components: [ bme68x_bsec ]
 
 logger:
 
@@ -108,19 +104,22 @@ i2c:
   scl: GPIO6
   scan: false
 
-bme68x_bsec:
+bme68x_bsec2_i2c:
   address: ${bme680_addr}
+  model: bme680
+  operating_age: 28d
+  sample_rate: LP
+  supply_voltage: 3.3V
   state_save_interval: 30min
 
 light:
-  - platform: neopixelbus
+  - platform: esp32_rmt_led_strip
     id: rgb_light
-    type: GRB
-    variant: WS2812
+    rgb_order: GRB
     pin: GPIO2
+    chipset: WS2812
     num_leds: 1
     name: "${device_name} Light"
-    gamma_correct: 0
     restore_mode: RESTORE_DEFAULT_OFF
     on_state:
       then:
@@ -144,8 +143,8 @@ light:
           min_brightness: 10%
       - addressable_rainbow:
           name: "Boot Sequence"
-          speed: 50
-          width: 1
+          speed: 25
+          width: 5
 
 text_sensor:
   - platform: template
@@ -158,7 +157,7 @@ text_sensor:
       id: ip_address
       name: "${device_name} IP Address"
       icon: "mdi:wan"
-  - platform: bme68x_bsec
+  - platform: bme68x_bsec2
     iaq_accuracy:
       name: "${device_name} IAQ Accuracy"
   - platform: template
@@ -256,18 +255,17 @@ select:
             id(rgb_red_fast_pulse).execute();
 
 sensor:
-  - platform: template
+  - platform: internal_temperature
     id: internal_temp
-    name: "${device_name} Internal Temperature"
+    name: "Internal Temperature"
     icon: "mdi:thermometer"
     unit_of_measurement: "°C"
     entity_category: diagnostic
     disabled_by_default: true
-    lambda: return temperatureRead();
   - platform: wifi_signal
     name: "${device_name} WiFi Signal"
     update_interval: 60s
-  - platform: bme68x_bsec
+  - platform: bme68x_bsec2
     temperature:
       name: "${device_name} Temperature"
       filters:
@@ -275,6 +273,7 @@ sensor:
         - lambda: "return x-(abs((id(internal_temp).state/2)-x)/2)+id(temperature_offset).state;"
     pressure:
       name: "${device_name} Pressure"
+      icon: "mdi:gauge"
       filters:
         - median
         - lambda: "return x+id(pressure_offset).state;"
