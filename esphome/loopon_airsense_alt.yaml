@@ -5,7 +5,7 @@ substitutions:
   name: airsense
   device_name: AirSense
   device_make: LoopOn
-  sw_version: "1.6.0"
+  sw_version: "1.6.1"
   bme680_addr: "0x77" # Addr pad unsoldered=0x77 / soldered=0x76
   iaq_level_0: Excellent
   iaq_level_1: Good
@@ -20,10 +20,14 @@ esphome:
   friendly_name: "${device_name}"
   comment: "${device_name} by ${device_make}"
   name_add_mac_suffix: true
-  min_version: "2024.9.2"
+  min_version: "2026.7.3"
   project:
     name: "${device_make}.${device_name}"
     version: "${sw_version}"
+  build_flags:
+    - "-DARDUINO_USB_MODE=1"
+    - "-DARDUINO_USB_CDC_ON_BOOT=1"
+    - "-DARDUINO_ESP32C3_DEV=1"
   platformio_options:
     board_build.mcu: esp32c3
     board_build.variant: esp32c3
@@ -31,10 +35,6 @@ esphome:
     board_build.f_cpu: 160000000L
     board_build.f_flash: 80000000L
     board_build.flash_size: 4MB
-    build_flags:
-      - -DARDUINO_USB_MODE=1
-      - -DARDUINO_USB_CDC_ON_BOOT=1
-      - -DARDUINO_ESP32C3_DEV=1
     upload_speed: 115200
   on_boot:
     priority: 600
