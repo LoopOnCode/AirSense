@@ -125,7 +125,7 @@ light:
       then:
         if:
           condition:
-            - lambda: return id(led_effect_presets).state != "";
+            - lambda: return id(led_effect_presets).current_option() != "";
           then:
             - select.set:
                 id: led_effect_presets
